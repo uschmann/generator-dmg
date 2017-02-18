@@ -1,6 +1,6 @@
 {
   "name": "generator-dmg",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Generator to scaffold a gambeoy project using rgbds",
   "homepage": "",
   "author": {
@@ -42,7 +42,10 @@
       "mocha": true
     }
   },
-  "repository": "git@gitlab.adversign-media.de:Android/workflow.git",
+  "repository": {
+   "type": "git",
+   "url": "https://github.com/uschmann/easy-wkhtmltoimage.git"
+ },
   "scripts": {
     "prepublish": "gulp prepublish",
     "test": "gulp"
