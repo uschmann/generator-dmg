@@ -71,6 +71,12 @@ module.exports = Generator.extend({
     chmod(this.templatePath('make.sh'), 777);
     chmod(this.templatePath('run.sh'), 777);
     chmod(this.templatePath('flash.sh'), 777);
+  },
+
+  end: function() {
+    this.log(yosay(
+      'Run ' + chalk.red('./run.sh') + ' to build and run your ROM!'
+    ));
   }
 
 });
