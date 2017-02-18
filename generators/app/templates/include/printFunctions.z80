@@ -1,0 +1,67 @@
+; ASCII table for hex values from 0-F
+HexDigits:
+	DB	$30, $31, $32, $33, $34, $35, $36, $37, $38, $39, $41, $42, $43, $44, $45, $46
+
+; Prints the lower 4 bit of c in ASCII at position x
+; c = number
+; d = x
+printHex4:
+	push	de			; Save register pair de
+
+	ld	hl, _SCRN0		; Base BgMap0-Adress
+	ld	a,l			; Increase hl by d
+	add	d			;
+	ld	l,a			;
+
+	ld	de,HexDigits	; Base address of array of Digits
+	ld	a,e			; Increase de by value stored in c
+	add	a,c			;
+	ld	e,a			;
+
+	ld	a, [de]		; Store the digit in ASCII into a
+	ld	[hl],a		; Print ASCII-reprensentation
+	
+	pop de			; restore register pair de
+	ret
+
+; Print value of c as HEX string
+; c = number
+; d = x
+printHex:
+	call	waitForVblank
+	push 	bc
+	push	de
+	push	af
+
+	push	bc
+	ld	a,c			; get high nibble
+	srl	a			;
+	srl	a			;
+	srl	a			;
+	srl	a			;
+	ld	c,a			;
+	call	printHex4		; print low nibble
+	pop	bc
+
+	inc	d			; increase d to print the next nibble at position d+1
+
+	ld	a,c			; get low nibble
+	and	$0F
+	ld	c,a
+	call	printHex4		; print low nibble
+
+	pop	af
+	pop	de
+	pop	bc
+
+	ret
+
+; Waits for VBlank and returns
+waitForVblank:
+	push	af
+.wait:				; wait for vblank
+ 	ld    a,[rLY]
+ 	cp    145             	; Is display on scan line 145 yet?
+ 	jr	nz,.wait        	; no, keep waiting
+ 	pop	af
+ 	ret

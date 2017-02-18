@@ -1,0 +1,37 @@
+; Collection of advanced arithmetic procedures
+
+; ****
+; Calculates the product of DE and A and stores it into HL
+; ****
+DE_Times_A:          	; HL = DE × A
+    LD     	HL, 0      	; Use HL to store the product
+    LD     	B, 8       	; Eight bits to check
+._loop:
+    RRCA             	; Check least-significant bit of accumulator
+    JR     	NC, ._skip  	; If zero, skip addition
+    ADD    	HL, DE
+._skip:
+    SLA    	E         	; Shift DE one bit left
+    RL	D
+    DEC	B
+    JR	NZ,._loop
+    RET
+
+; ****
+; Divides HL with D and stores the result in HL and the reminder in A
+Div_HL_D:            ; HL = HL ÷ D, A = remainder
+    XOR    A         ; Clear upper eight bits of AHL
+    LD     B, 16      ; Sixteen bits in dividend
+._loop:
+    ADD    HL, HL     ; Do a SLA HL
+    RLA              ; This moves the upper bits of the dividend into A
+    JR     C, ._overflow
+    CP     D         ; Check if we can subtract the divisor
+    JR     C, ._skip   ; Carry means D > A
+._overflow:
+    SUB    D         ; Do subtraction for real this time
+    INC    L         ; Set bit 0 of quotient
+._skip:
+    DEC B
+    JR  NZ, ._loop
+    RET

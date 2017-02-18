@@ -1,0 +1,6 @@
+#! /bin/sh
+echo building <%= name %>.gb...
+./bin/rgbds/rgbasm -o build/<%= name %>.o main.z80
+./bin/rgbds/rgblink -o build/<%= name %>.gb -m build/map.txt -n build/<%= name %>.sym build/<%= name %>.o
+./bin/rgbds/rgbfix -v build/<%= name %>.gb
+echo done...

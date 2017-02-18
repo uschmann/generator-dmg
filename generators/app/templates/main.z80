@@ -1,0 +1,142 @@
+; Hello World 1.0
+; February 2, 2007
+; John Harrison
+; Based mostly from GALP
+
+INCLUDE "include/gbhw.z80" ; standard hardware definitions from devrs.com
+INCLUDE "include/ibmpc1.z80" ; ASCII character set from devrs.com
+
+; IRQs
+SECTION	"Vblank",HOME[$0040]
+	reti
+SECTION	"LCDC",HOME[$0048]
+	reti
+SECTION	"Timer_Overflow",HOME[$0050]
+	reti
+SECTION	"Serial",HOME[$0058]
+	reti
+SECTION	"p1thru4",HOME[$0060]
+	reti
+
+; ****************************************************************************************
+; boot loader jumps to here.
+; ****************************************************************************************
+SECTION	"start",HOME[$0100]
+nop
+jp	begin
+
+; ****************************************************************************************
+; ROM HEADER and ASCII character set
+; ****************************************************************************************
+; ROM header
+	ROM_HEADER	ROM_NOMBC, ROM_SIZE_32KBYTE, RAM_SIZE_0KBYTE
+INCLUDE "include/memory.z80"
+INCLUDE "include/math.z80"
+INCLUDE "include/printFunctions.z80"
+INCLUDE "include/pad.z80"
+TileData:
+	chr_IBMPC1	1,8 ; LOAD ENTIRE CHARACTER SET
+
+; ****************************************************************************************
+; Main code Initialization:
+; set the stack pointer, enable interrupts, set the palette, set the screen relative to the window
+; copy the ASCII character table, clear the screen
+; ****************************************************************************************
+begin:
+	nop
+	di
+	ld	sp, $ffff		; set the stack pointer to highest mem location + 1
+init:
+	ld	a, %11100100 		; Window palette colors, from darkest to lightest
+	ld	[rBGP], a		; CLEAR THE SCREEN
+
+	ld	a,0			; SET SCREEN TO TO UPPER RIGHT HAND CORNER
+	ld	[rSCX], a
+	ld	[rSCY], a
+	call	StopLCD		; YOU CAN NOT LOAD $8000 WITH LCD ON
+	ld	hl, TileData
+	ld	de, _VRAM		; $8000
+	ld	bc, 8*256 		; the ASCII character set: 256 characters, each with 8 bytes of display data
+	call	mem_CopyMono	; load tile data
+
+
+	ld	a, 32			; Clear screen
+	ld	hl, _SCRN0
+	ld	bc, SCRN_VX_B * SCRN_VY_B
+	call	mem_SetVRAM
+
+	; clear OAM memory
+	ld	a, 0
+	ld	hl, _OAMRAM
+	ld	bc, $00A0
+	call	mem_SetVRAM
+
+	; Set spreite 1 to the middle of the screen
+	ld	a,SCRN_X/2+8	; X-Position
+	ld	[_OAMRAM],a
+	ld	a,SCRN_Y/2+8	; Y-Position
+	ld	[_OAMRAM+1],a
+	ld	a,1			; Char index (1 = Happy face)
+	ld	[_OAMRAM+2],a
+
+	; turn on LCD
+	ld	a, LCDCF_ON|LCDCF_BG8000|LCDCF_BG9800|LCDCF_BGON|LCDCF_OBJ8|LCDCF_OBJON
+	ld	[rLCDC], a
+
+; ****************************************************************************************
+; Print a character string in the middle of the screen
+; ****************************************************************************************
+	ld	hl, message
+	ld	de, _SCRN0+(SCRN_VY_B*7)
+	ld	bc, messageEnd - message
+	call	mem_CopyVRAM
+
+; ****************************************************************************************
+; Read the button state and print it in Hex
+; ****************************************************************************************
+gameLoop:
+	call	readPad			; read the status of the buttons
+	ld	a,[_PAD]			; write status of buttons to c
+	ld	c,a
+	ld	d,0						; x position to display hex representation of button state
+	call	printHex
+	jr	gameLoop
+
+; ****************************************************************************************
+; hard-coded data
+; ****************************************************************************************
+
+message:
+	DB	"<%= message %>"
+messageEnd:
+
+
+; ****************************************************************************************
+; StopLCD:
+; turn off LCD if it is on
+; and wait until the LCD is off
+; ****************************************************************************************
+StopLCD:
+        ld      a,[rLCDC]
+        rlca                    ; Put the high bit of LCDC into the Carry flag
+        ret     nc              ; Screen is off already. Exit.
+
+; Loop until we are in VBlank
+
+.wait:
+        ld      a,[rLY]
+        cp      145             ; Is display on scan line 145 yet?
+        jr      nz,.wait        ; no, keep waiting
+
+; Turn off the LCD
+
+        ld      a,[rLCDC]
+        res     7,a             ; Reset bit 7 of LCDC
+        ld      [rLCDC],a
+
+        ret
+
+; RAM
+SECTION	"variables", BSS
+_PAD:
+	DS	$01	; allocate 1 byte for the state of the pad
