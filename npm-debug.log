@@ -1,0 +1,134 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/Cellar/node/6.2.1/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'publish' ]
+2 info using npm@3.9.3
+3 info using node@v6.2.1
+4 verbose publish [ '.' ]
+5 silly cache add args [ '.', null ]
+6 verbose cache add spec .
+7 silly cache add parsed spec Result {
+7 silly cache add   raw: '.',
+7 silly cache add   scope: null,
+7 silly cache add   name: null,
+7 silly cache add   rawSpec: '.',
+7 silly cache add   spec: '/Users/andreuschmann/generator-dmg',
+7 silly cache add   type: 'directory' }
+8 verbose addLocalDirectory /Users/andreuschmann/.npm/generator-dmg/1.0.0/package.tgz not in flight; packing
+9 verbose correctMkdir /Users/andreuschmann/.npm correctMkdir not in flight; initializing
+10 info lifecycle generator-dmg@1.0.0~prepublish: generator-dmg@1.0.0
+11 verbose lifecycle generator-dmg@1.0.0~prepublish: unsafe-perm in lifecycle true
+12 verbose lifecycle generator-dmg@1.0.0~prepublish: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/andreuschmann/generator-dmg/node_modules/.bin:/usr/local/Cellar/node/6.2.1/bin:/opt/local/bin:/opt/local/sbin:/Applications/MAMP/bin/php/php5.6.2/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Users/andreuschmann/Library/Android/sdk/platform-tools:/Users/andreuschmann/devkitPro/devkitARM/bin:/Users/andreuschmann/.composer/vendor/bin
+13 verbose lifecycle generator-dmg@1.0.0~prepublish: CWD: /Users/andreuschmann/generator-dmg
+14 silly lifecycle generator-dmg@1.0.0~prepublish: Args: [ '-c', 'gulp prepublish' ]
+15 silly lifecycle generator-dmg@1.0.0~prepublish: Returned: code: 0  signal: null
+16 verbose tar pack [ '/Users/andreuschmann/.npm/generator-dmg/1.0.0/package.tgz',
+16 verbose tar pack   '/Users/andreuschmann/generator-dmg' ]
+17 verbose tarball /Users/andreuschmann/.npm/generator-dmg/1.0.0/package.tgz
+18 verbose folder /Users/andreuschmann/generator-dmg
+19 verbose addLocalTarball adding from inside cache /Users/andreuschmann/.npm/generator-dmg/1.0.0/package.tgz
+20 verbose correctMkdir /Users/andreuschmann/.npm correctMkdir not in flight; initializing
+21 silly cache afterAdd generator-dmg@1.0.0
+22 verbose afterAdd /Users/andreuschmann/.npm/generator-dmg/1.0.0/package/package.json not in flight; writing
+23 verbose correctMkdir /Users/andreuschmann/.npm correctMkdir not in flight; initializing
+24 verbose afterAdd /Users/andreuschmann/.npm/generator-dmg/1.0.0/package/package.json written
+25 silly publish { name: 'generator-dmg',
+25 silly publish   version: '1.0.0',
+25 silly publish   description: 'Generator to scaffold a gambeoy project using rgbds',
+25 silly publish   homepage: 'https://github.com/uschmann/generator-dmg#readme',
+25 silly publish   author:
+25 silly publish    { name: 'Andre Uschmann',
+25 silly publish      email: 'mail@andre-uschmann.de',
+25 silly publish      url: 'andre-uschmann.de' },
+25 silly publish   files: [ 'generators' ],
+25 silly publish   main: 'generators/index.js',
+25 silly publish   keywords: [ 'gameby dmg asm assembly homebrew rgbds', 'yeoman-generator' ],
+25 silly publish   dependencies:
+25 silly publish    { chalk: '^1.1.3',
+25 silly publish      chmod: '^0.2.1',
+25 silly publish      'yeoman-generator': '^1.0.0',
+25 silly publish      yosay: '^1.2.1' },
+25 silly publish   devDependencies:
+25 silly publish    { 'yeoman-test': '^1.6.0',
+25 silly publish      'yeoman-assert': '^2.2.1',
+25 silly publish      eslint: '^3.1.1',
+25 silly publish      'eslint-config-xo-space': '^0.15.0',
+25 silly publish      gulp: '^3.9.0',
+25 silly publish      'gulp-eslint': '^3.0.1',
+25 silly publish      'gulp-exclude-gitignore': '^1.0.0',
+25 silly publish      'gulp-line-ending-corrector': '^1.0.1',
+25 silly publish      'gulp-istanbul': '^1.0.0',
+25 silly publish      'gulp-mocha': '^3.0.1',
+25 silly publish      'gulp-plumber': '^1.0.0',
+25 silly publish      'gulp-nsp': '^2.1.0' },
+25 silly publish   eslintConfig: { extends: 'xo-space', env: { mocha: true } },
+25 silly publish   repository:
+25 silly publish    { type: 'git',
+25 silly publish      url: 'git+https://github.com/uschmann/generator-dmg.git' },
+25 silly publish   scripts: { prepublish: 'gulp prepublish', test: 'gulp' },
+25 silly publish   license: 'MIT',
+25 silly publish   readme: '# generator-dmg [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]\n> Generator to scaffold a gambeoy project using rgbds\n\n## Installation\n\nFirst, install [Yeoman](http://yeoman.io) and generator-dmg using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).\n\n```bash\nnpm install -g yo\nnpm install -g generator-dmg\n```\n\nThen generate your new project:\n\n```bash\nyo dmg\n```\n\n### Install wine\nYou will need to install wine to run the emulator that executes the rom.\n```bash\nbrew install wine\n```\n\n### Building and running the ROM-image\n```bash\n./run.sh\n```\n\n\n## Getting To Know Yeoman\n\n * Yeoman has a heart of gold.\n * Feel free to [learn more about Yeoman](http://yeoman.io/).\n\n## License\n\nMIT © [Andre Uschmann](andre-uschmann.de)\n\n\n[npm-image]: https://badge.fury.io/js/generator-dmg.svg\n[npm-url]: https://npmjs.org/package/generator-dmg\n[travis-image]: https://travis-ci.org/uschmann/generator-dmg.svg?branch=master\n[travis-url]: https://travis-ci.org/uschmann/generator-dmg\n[daviddm-image]: https://david-dm.org/uschmann/generator-dmg.svg?theme=shields.io\n[daviddm-url]: https://david-dm.org/uschmann/generator-dmg\n',
+25 silly publish   readmeFilename: 'README.md',
+25 silly publish   gitHead: '294fc22c9b69c27431b0c7200f4d249cb348f0e7',
+25 silly publish   bugs: { url: 'https://github.com/uschmann/generator-dmg/issues' },
+25 silly publish   _id: 'generator-dmg@1.0.0',
+25 silly publish   _shasum: '381a181a0dcb6c95330e1af1f7d1b94b4bab9216',
+25 silly publish   _from: '.' }
+26 verbose getPublishConfig undefined
+27 silly mapToRegistry name generator-dmg
+28 silly mapToRegistry using default registry
+29 silly mapToRegistry registry https://registry.npmjs.org/
+30 silly mapToRegistry data Result {
+30 silly mapToRegistry   raw: 'generator-dmg',
+30 silly mapToRegistry   scope: null,
+30 silly mapToRegistry   name: 'generator-dmg',
+30 silly mapToRegistry   rawSpec: '',
+30 silly mapToRegistry   spec: 'latest',
+30 silly mapToRegistry   type: 'tag' }
+31 silly mapToRegistry uri https://registry.npmjs.org/generator-dmg
+32 verbose publish registryBase https://registry.npmjs.org/
+33 silly publish uploading /Users/andreuschmann/.npm/generator-dmg/1.0.0/package.tgz
+34 verbose request uri https://registry.npmjs.org/generator-dmg
+35 verbose request sending authorization for write operation
+36 info attempt registry request try #1 at 15:04:49
+37 verbose request using bearer token for auth
+38 verbose request id 1d777d17859784a0
+39 http request PUT https://registry.npmjs.org/generator-dmg
+40 http 403 https://registry.npmjs.org/generator-dmg
+41 verbose headers { 'content-type': 'application/json',
+41 verbose headers   'cache-control': 'max-age=300',
+41 verbose headers   'content-length': '95',
+41 verbose headers   'accept-ranges': 'bytes',
+41 verbose headers   date: 'Sat, 18 Feb 2017 14:04:55 GMT',
+41 verbose headers   via: '1.1 varnish',
+41 verbose headers   connection: 'keep-alive',
+41 verbose headers   'x-served-by': 'cache-fra1242-FRA',
+41 verbose headers   'x-cache': 'MISS',
+41 verbose headers   'x-cache-hits': '0',
+41 verbose headers   'x-timer': 'S1487426689.541728,VS0,VE5774',
+41 verbose headers   vary: 'Accept-Encoding' }
+42 verbose request invalidating /Users/andreuschmann/.npm/registry.npmjs.org/generator-dmg on PUT
+43 error publish Failed PUT 403
+44 verbose stack Error: "You cannot publish over the previously published version 1.0.0." : generator-dmg
+44 verbose stack     at makeError (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:264:12)
+44 verbose stack     at CachingRegistryClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:252:14)
+44 verbose stack     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:172:14)
+44 verbose stack     at Request.self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:200:22)
+44 verbose stack     at emitTwo (events.js:106:13)
+44 verbose stack     at Request.emit (events.js:191:7)
+44 verbose stack     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1067:10)
+44 verbose stack     at emitOne (events.js:101:20)
+44 verbose stack     at Request.emit (events.js:188:7)
+44 verbose stack     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:988:12)
+45 verbose statusCode 403
+46 verbose pkgid generator-dmg
+47 verbose cwd /Users/andreuschmann/generator-dmg
+48 error Darwin 15.6.0
+49 error argv "/usr/local/Cellar/node/6.2.1/bin/node" "/usr/local/bin/npm" "publish"
+50 error node v6.2.1
+51 error npm  v3.9.3
+52 error code E403
+53 error "You cannot publish over the previously published version 1.0.0." : generator-dmg
+54 error If you need help, you may report this error at:
+54 error     <https://github.com/npm/npm/issues>
+55 verbose exit [ 1, true ]
